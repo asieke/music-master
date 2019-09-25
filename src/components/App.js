@@ -9,6 +9,10 @@ class App extends Component{
 
   state = { artist: null, tracks: null };
 
+  componentDidMount() {
+    this.searchArtist('Pentatonix');
+  }
+
   searchArtist = artistQuery => {
     fetch(`${API_ADDRESS}/artist/${artistQuery}`)
     .then(response => response.json())

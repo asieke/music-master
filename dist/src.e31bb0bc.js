@@ -24251,6 +24251,18 @@ function (_Component) {
       };
     });
 
+    _defineProperty(_assertThisInitialized(_this), "trackIcon", function (track) {
+      if (!track.preview_url) {
+        return _react.default.createElement("span", null, "N/A");
+      }
+
+      if (_this.state.playing && _this.state.playingPreviewURL === track.preview_url) {
+        return _react.default.createElement("span", null, "| |");
+      }
+
+      return _react.default.createElement("span", null, "\u25B6");
+    });
+
     return _this;
   }
 
@@ -24269,10 +24281,17 @@ function (_Component) {
             preview_url = track.preview_url;
         return _react.default.createElement("div", {
           key: id,
-          onClick: _this2.playAudio(preview_url)
+          onClick: _this2.playAudio(preview_url),
+          className: "track"
         }, _react.default.createElement("img", {
-          src: album.images[0].url
-        }), _react.default.createElement("p", null, name));
+          src: album.images[0].url,
+          alt: "track-image",
+          className: "track-image"
+        }), _react.default.createElement("p", {
+          className: "track-text"
+        }, name), _react.default.createElement("p", {
+          className: "track-icon"
+        }, _this2.trackIcon(track)));
       }));
     }
   }]);
@@ -24379,6 +24398,11 @@ function (_Component) {
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.searchArtist('Pentatonix');
+    }
+  }, {
     key: "render",
     value: function render() {
       console.log(this.state);
